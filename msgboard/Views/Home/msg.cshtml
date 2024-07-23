@@ -1,0 +1,17 @@
+﻿@model msgboard.Models.msgdata
+@{
+    ViewBag.Title = "mes";
+    Layout = "~/Views/Shared/_Layout-member.cshtml";
+}
+
+<h1>留言區</h1>
+@using (Html.BeginForm())
+{
+
+<div>
+   
+    <textarea name="content" rows="4" cols="50" placeholder="請輸入您的留言" class="form-control"></textarea>
+</div>
+<br />
+<input type="submit" value="提交" class="btn btn-primary">
+}

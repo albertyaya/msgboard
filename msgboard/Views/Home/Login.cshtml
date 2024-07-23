@@ -1,0 +1,25 @@
+﻿@model msgboard.Models.Table
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+<h1 style="color:red">@ViewBag.msg</h1>
+@using (Html.BeginForm())
+{
+    <div class="container">
+        <div class="form-group">
+            @Html.DisplayNameFor(m => m.account)
+            @Html.TextBoxFor(m => m.account, htmlAttributes: new { @class = "form-control", patern = "[a-zA-z]", Required = "required" })
+        </div>
+        <div class="form-group">
+            @Html.DisplayNameFor(m => m.password)
+            @Html.TextBoxFor(m => m.password, htmlAttributes: new { @class = "form-control", Required = "required" })
+        </div>
+       
+        <br />
+        <div class="form-group">
+            <input type="submit" value="登入" class="btn btn-primary">
+        </div>
+    </div>
+}

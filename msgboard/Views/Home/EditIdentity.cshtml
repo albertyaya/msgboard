@@ -1,0 +1,77 @@
+﻿@model msgboard.Models.Table
+@{
+    ViewBag.Title = "EditIdentity";
+    Layout = "~/Views/Shared/_Layout-member.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>個人資料</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .profile {
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+            .profile h2 {
+                text-align: center;
+            }
+
+            .profile .field {
+                margin-bottom: 10px;
+                
+            }
+
+                .profile .field label {
+                    display: block;
+                    font-weight: bold;
+                }
+
+                .profile .field span {
+                    display: block;
+                    margin-top: 5px;
+                }
+    </style>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+    <div class="profile">
+        <h2>個人資料</h2>
+        <div class="field">
+            <label>帳號:</label>
+            <span>@Html.TextBoxFor(m => m.account, htmlAttributes: new { @class = "form-control" })</span>
+        </div>
+        <div class="field">
+            <label>密碼:</label>
+            <span>@Html.TextBoxFor(m => m.password, htmlAttributes: new { @class = "form-control" })</span>
+        </div>
+        <div class="field">
+            <label>名稱:</label>
+            <span><span>@Html.TextBoxFor(m => m.name, htmlAttributes: new { @class = "form-control" })</span></span>
+        </div>
+        <div class="field">
+            <label>年齡:</label>
+            <span><span>@Html.TextBoxFor(m => m.age, htmlAttributes: new { @class = "form-control" })</span></span>
+        </div>
+        <div class="field">
+            <label>生日:</label>
+           @Html.TextBoxFor(m => m.birthday, "{0:yyyy-MM-dd}", new { @class = "form-control",type="date"})
+        </div>
+        <div >
+            <input type="submit" value="修改完成" class="btn btn-primary" style="float:right">
+        </div>
+        <br />
+        <!-- 如果有其他字段，继续添加 -->
+    </div>
+    }
+</body>
+</html>

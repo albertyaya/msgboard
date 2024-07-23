@@ -1,0 +1,118 @@
+﻿@model IEnumerable<msgboard.Models.Table>
+
+@{
+    ViewBag.Title = "Read";
+    Layout = "~/Views/Shared/_Layout-admin.cshtml";
+}
+
+<h2>Read</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.birthday)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr id="row-@item.Id">
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.account)</span>
+                <input class="edit form-control" type="text" value="@item.account" name="account" style="display:none;" />
+            </td>
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.password)</span>
+                <input class="edit form-control" type="text" value="@item.password" name="password" style="display:none;" />
+            </td>
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.name)</span>
+                <input class="edit form-control" type="text" value="@item.name" name="name" style="display:none;" />
+            </td>
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.age)</span>
+                <input class="edit form-control" type="number" value="@item.age" name="age" style="display:none;" />
+            </td>
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.birthday)</span>
+                <input class="edit form-control" type="date" value="@String.Format("{0:yyyy-MM-dd}", item.birthday)"   name="birthday" style="display:none;" />
+            </td>
+            <td>
+                <button class="btn btn-primary edit-btn" onclick="editRow(@item.Id)">Edit</button>
+                <button class="btn btn-success save-btn" style="display:none;" onclick="saveRow(@item.Id)">Save</button>
+                <button class="btn btn-danger cancel-btn" style="display:none;" onclick="cancelEdit(@item.Id)">Cancel</button>
+            </td>
+            @*<td>
+            @Html.ActionLink("Edit", "MemberShipEdit", new { id = item.Id }, new { @class = "btn btn-primary" })
+            @Html.ActionLink("Delete", "MemberShipDelete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除?')" })
+        </td>*@
+        </tr>
+    }
+
+</table>
+@section Scripts {
+    <script>
+        function editRow(id)
+        {
+            var row = document.getElementById('row-' + id);
+            row.querySelectorAll('.display').forEach(function (el){el.style.display = 'none';});
+            row.querySelectorAll('.edit').forEach(function (el){el.style.display = 'block';});
+            row.querySelector('.edit-btn').style.display = 'none';
+            row.querySelector('.save-btn').style.display = 'inline-block';
+            row.querySelector('.cancel-btn').style.display = 'inline-block';
+        }
+
+
+
+        function saveRow(id)
+        {
+            var row = document.getElementById('row-' + id);
+            var data = {
+                Id: id,
+                account: row.querySelector('input[name="account"]').value,
+                password: row.querySelector('input[name="password"]').value,
+                name: row.querySelector('input[name="name"]').value,
+                age: row.querySelector('input[name="age"]').value,
+                birthday: row.querySelector('input[name="birthday"]').value
+            };
+
+            $.ajax({
+                url: '@Url.Action("MemberShipEdit")',
+                type: 'POST',
+                data: data,
+                success: function() {
+                    location.reload();
+                }
+            });
+        }
+
+
+
+        function cancelEdit(id) {
+            var row = document.getElementById('row-' + id);
+            row.querySelectorAll('.display').forEach(function(el) {
+                el.style.display = 'block';
+            });
+            row.querySelectorAll('.edit').forEach(function(el) {
+                el.style.display = 'none';
+            });
+            row.querySelector('.edit-btn').style.display = 'inline-block';
+            row.querySelector('.save-btn').style.display = 'none';
+            row.querySelector('.cancel-btn').style.display = 'none';
+        }
+    </script>
+    }

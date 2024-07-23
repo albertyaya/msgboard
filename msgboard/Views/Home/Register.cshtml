@@ -1,0 +1,37 @@
+﻿@model msgboard.Models.Table
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+<h3 style="color:red">@ViewBag.msg</h3>
+
+@using (Html.BeginForm())
+{
+<div >
+    <div class="form-group">
+        @Html.DisplayNameFor(m => m.account)
+        @Html.TextBoxFor(m => m.account, htmlAttributes: new { @class = "form-control", pattern = "[a-zA-Z0-9]{3,9}", Required = "required" ,placeholder="輸入3~9個英文或數字" })
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(m => m.password)
+        @Html.TextBoxFor(m => m.password, htmlAttributes: new { @class = "form-control", Required = "required" })
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(m => m.name)
+        @Html.TextBoxFor(m => m.name, htmlAttributes: new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(m => m.age)
+        @Html.TextBoxFor(m => m.age, htmlAttributes: new { @class = "form-control", type = "number", max = "100" })
+    </div>
+    <div class="form-group">
+        @Html.DisplayNameFor(m => m.birthday)
+        @Html.TextBoxFor(m => m.birthday, htmlAttributes: new { @class = "form-control", type = "date" })
+    </div>
+    <br />
+    <div class="form-group">
+       <input type="submit" value="送出" class="btn btn-primary">
+    </div>
+</div>
+}

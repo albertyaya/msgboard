@@ -1,0 +1,74 @@
+﻿@model msgboard.Models.Table
+@{
+    ViewBag.Title = "Identity";
+    Layout = "~/Views/Shared/_Layout-member.cshtml";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>個人資料</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .profile {
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+            .profile h2 {
+                text-align: center;
+            }
+
+            .profile .field {
+                margin-bottom: 10px;
+            }
+
+                .profile .field label {
+                    display: block;
+                    font-weight: bold;
+                }
+
+                .profile .field span {
+                    display: block;
+                    margin-top: 5px;
+                }
+    </style>
+</head>
+<body>
+    <div class="profile">
+        <h2>個人資料</h2>
+        <div class="field">
+            <label>帳號:</label>
+            <span>@Html.DisplayFor(m => m.account)</span>
+        </div>
+        <div class="field">
+            <label>密碼:</label>
+            <span>@Html.DisplayFor(m => m.password)</span>
+        </div>
+        <div class="field">
+            <label>名稱:</label>
+            <span>@Html.DisplayFor(m => m.name)</span>
+        </div>
+        <div class="field">
+            <label>年齡:</label>
+            <span>@Html.DisplayFor(m => m.age)</span>
+        </div>
+        <div class="field">
+            <label>生日:</label>
+            <span>@Html.DisplayFor(m => m.birthday)</span>
+        </div>
+        <!-- 如果有其他字段，继续添加 -->
+        <div>
+             @Html.ActionLink("修改", "EditIdentity", "Home", new { @class = "btn btn-primary" })
+        </div>
+        <br />
+    </div>
+      
+</body>
+</html>

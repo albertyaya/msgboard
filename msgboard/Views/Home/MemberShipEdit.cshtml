@@ -1,0 +1,59 @@
+﻿@model  msgboard.Models.Table
+@{
+    ViewBag.Title = "MemberShipEdit";
+    Layout = "~/Views/Shared/_Layout-member.cshtml";
+}
+
+
+
+<h2>MemberShipEdit</h2>
+
+@using (Html.BeginForm())
+{
+<table class="table">
+    <tr style="text-align: center">
+        <th>
+            @Html.DisplayNameFor(model => model.account)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.birthday)
+        </th>
+        <th></th>
+    </tr>
+
+       
+       
+        <tr style="text-align: center">
+            <td>
+                @Html.TextBoxFor(model => model.account, new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.password, new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.name, new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.age, new { @class = "form-control" })
+            </td>
+            <td>
+                @Html.TextBoxFor(model => model.birthday, "{0:yyyy-MM-dd}", new {@class="form-control", type = "date" })
+              
+            </td>
+            <td>
+                <input type="submit" value="修改完成" class="btn btn-primary" style="float:right">
+            </td>
+        </tr>
+    
+
+</table>
+}
