@@ -6,8 +6,8 @@
 @Html.ActionLink("我要留言", "msg", "Home", new { @class = "btn btn-primary" })
 @using (Html.BeginForm())
 {
-<input type="text"  name="searchword" >
-<input type="submit" value="搜尋">
+    <input type="text" name="searchword">
+    <input type="submit" value="搜尋">
 }
 <table class="table">
 
@@ -23,20 +23,75 @@
 
     @foreach (var item in Model.msgdatas)
     {
-        <tr>
+        <tr id="@item.Id">
             <td>@item.fname</td>
             <td>@item.msg</td>
             <td>@item.fdate.ToString()</td>
-            <td>@item.reply</td>
+            <td>
+                <span class="display">@Html.DisplayFor(modelItem => item.reply)</span>
+                <input class="reply-msg form-control" type="text"  value="@item.reply" name="reply" style="display:none;" />
+            </td>
 
             @if ((string)Session["Username"] == "admin")
             {
-                <td>@Html.ActionLink("回覆", "reply", new { id = item.Id }, new { @class = "btn btn-primary" })</td>
-                <td>@Html.ActionLink("刪除", "delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?')" })</td>
+                <td>
+                    @*@Html.ActionLink("回覆", "reply", new { id = item.Id }, new { @class = "btn btn-primary" })*@
+                    <button class="btn btn-success reply-btn" style="display:block;" onclick="replyRow(@item.Id)">回覆</button>
+                    <button class="btn btn-success confirm-btn" style="display:none;" onclick="confirmreply(@item.Id)">Confirm</button>
+                    <button class="btn btn-danger cancel-btn" style="display:none;" onclick="cancelreply(@item.Id)">Cancel</button>
+                </td>
+                <td>
+                    @Html.ActionLink("刪除", "delete", new { id = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('確定要刪除嗎?')" })
+                </td>
+
             }
         </tr>
     }
 
-
-
 </table>
+@section Scripts
+{
+    <script>
+
+     function replyRow(id)
+     {
+            var row = document.getElementById(id);
+            row.querySelectorAll('.display').forEach(function (el) { el.style.display = 'none'; });
+         row.querySelectorAll('.reply-msg').forEach(function (el) { el.style.display = 'block'; });
+         row.querySelector('.reply-btn').style.display = 'none';
+         row.querySelector('.confirm-btn').style.display = 'inline-block';
+         row.querySelector('.cancel-btn').style.display = 'inline-block';
+     }
+      function confirmreply(id)
+     {
+         var row = document.getElementById(id);
+         var data = {
+         Id:id,
+         reply: row.querySelector('input[name="reply"]').value
+     };
+
+     $.ajax({
+         url: '@Url.Action("reply")',
+        type: 'POST',
+        data: data,
+        success: function() {
+        location.reload();
+        }
+        });
+    }
+
+        function cancelreply(id) {
+            var row = document.getElementById(id);
+            row.querySelectorAll('.display').forEach(function (el) {
+                el.style.display = 'block';
+            });
+            row.querySelectorAll('.reply-msg').forEach(function (el) {
+                el.style.display = 'none';
+            });
+            row.querySelector('.reply-btn').style.display = 'inline-block';
+            row.querySelector('.confirm-btn').style.display = 'none';
+            row.querySelector('.cancel-btn').style.display = 'none';
+        }
+
+    </script>
+}

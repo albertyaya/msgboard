@@ -152,22 +152,23 @@ namespace msgboard.Controllers
             else { return View(); }
         }
 
-        public ActionResult reply(int id)
-        {
-            var member_msg = db.msgdata.Where(m => m.Id == id).FirstOrDefault();
-            return View(member_msg);
-        }
+        //public ActionResult reply(int id)
+        //{
+        //    var member_msg = db.msgdata.Where(m => m.Id == id).FirstOrDefault();
+        //    return View(member_msg);
+        //}
         [HttpPost]
         public ActionResult reply(msgdata replydata)
         {
             var member_msg = db.msgdata.Where(m => m.Id == replydata.Id).FirstOrDefault();
-            if (ModelState.IsValid)
+            if (member_msg!=null)
             {
                 member_msg.reply = replydata.reply;
                 db.SaveChanges();
                 return RedirectToAction("messagebox");
             }
-            return View();
+            
+            return View(replydata);
         }
         public ActionResult delete(msgdata m)
         {
